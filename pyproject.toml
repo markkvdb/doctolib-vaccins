@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "doctolib-vaccins"
+version = "0.1.0"
+description = "Find appointment for COVID-19 vaccin"
+authors = ["markkvdb <github@mvanderbroek.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7.1"
+requests = "^2.25.1"
+click = "^8.0.0"
+rich = "^10.2.0"
+loguru = "^0.5.3"
+pydantic = "^1.8.2"
+ratelimit = "^2.2.1"
+slack-webhook = "^1.0.6"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^21.5b1", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,22 @@
+[
+	{
+		"ville": "paris",
+		"name": "centre-de-vaccination-du-sdis-60"
+	},
+	{
+		"ville": "paris",
+		"name": "centre-de-vaccination-covid-19-mairie-du-16eme-arrondissement"
+	},
+	{
+		"ville": "paris",
+		"name": "ars-idf-centre-covisan-cpts-paris-18"
+	},
+	{
+		"ville": "saint-denis",
+		"name": "centre-de-vaccination-covid-19-stade-de-france"
+	},
+	{
+		"ville": "paris",
+		"name": "centre-de-vaccination-covid-19-gymnase-henry-de-montherlant-paris-16"
+	}
+]
