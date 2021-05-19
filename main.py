@@ -70,7 +70,7 @@ class Notification:
 
 
 @sleep_and_retry
-@limits(calls=1, period=0.1)
+@limits(calls=10, period=1)
 def call_doctolib(url: str, params: Optional[dict] = None) -> requests.Response:
     """Call doctolib with rate limiter."""
     r = requests.get(f"https://www.doctolib.fr/{url}", params=params)
@@ -115,20 +115,31 @@ def find_vaccin(slug_file: click.Path):
 
         agendas_id = "-".join([str(a["id"]) for a in data["agendas"]])
 
-        total = call_doctolib(
+        start_date = datetime.date.today()
+        end_date = start_date + datetime.timedelta(days=1)
+
+        availabilities = call_doctolib(
             url="/availabilities.json",
             params={
-                "start_date": datetime.datetime.today().date().isoformat(),
+                "start_date": start_date.isoformat(),
+                "end_date": end_date.isoformat(),
                 "visit_motive_ids": visit_motive_id,
                 "agenda_ids": agendas_id,
             },
-        )["total"]
+        )
+
+        if availabilities["total"] > 0:
+            total = sum(
+                [len(app["slots"]) for app in availabilities["availabilities"][:2]]
+            )
+        else:
+            total = 0
 
         logger.info(f'Found {total} availabilities at "{center.name}"')
 
         if total >= 2:
             Notification(id=id).post_notification(
-                f"*{total}* appointments available at center <{center.url()}|{center.name}>"
+                f"*{total}* appointments available at <{center.url()}|{center.name}>"
             )
 
 
